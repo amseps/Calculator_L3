@@ -13,6 +13,7 @@ public:
     static bool assertEquals(int, int);
     static bool assertEquals(double, double);
     static bool assertEquals(std::string, std::string);
+    static bool assertEquals(std::string, double);
 
     static bool runTheTests();
 };

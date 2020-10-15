@@ -3,6 +3,8 @@
 //
 
 #include <iostream>
+#include <cfloat>
+#include <cmath>
 #include "runTests.h"
 #include "Calculator.h"
 
@@ -15,22 +17,22 @@ using namespace std;
 bool runTests::assertEquals(int a, int b){
     bool pass = a == b;
     if(pass){
-        cout << "PASSED assertEquals " << a << " == " << b << endl;
+        cout << "assertEquals " << a << " == " << b << endl;
         return true;
     }else{
-        cout << "FAILED assertEquals " << a << " != " << b << endl;
+        cout << "-> FAILED assertEquals " << a << " != " << b << endl;
         return false;
     }
 }
 
 bool runTests::assertEquals(double a , double b){
     const double epsilon = 0.005f;
-    bool pass = (a - b) < epsilon;
+    bool pass = abs(a - b) < DBL_EPSILON;
     if(pass){
-        cout << "PASSED assertEquals " << a << " == " << b << endl;
+        cout << "assertEquals " << a << " == " << b << endl;
         return true;
     }else{
-        cout << "FAILED assertEquals " << a << " != " << b << endl;
+        cout << "-> FAILED assertEquals " << a << " != " << b << endl;
         return false;
     }
 }
@@ -38,45 +40,134 @@ bool runTests::assertEquals(double a , double b){
 bool runTests::assertEquals(std::string a , std::string b){
     bool pass = 0 == a.compare(b);
     if(pass){
-        cout << "PASSED assertEquals " << a << " == " << b << endl;
+        cout << "assertEquals " << a << " == " << b << endl;
         return true;
     }else{
-        cout << "FAILED assertEquals " << a << " != " << b << endl;
+        cout << "-> FAILED assertEquals " << a << " != " << b << endl;
         return false;
     }
+}
+
+bool runTests::assertEquals(string a, double b) {
+    cout << "{" << a << "} ->\t\t";
+    return runTests::assertEquals(Calculator::solve(a), b);
 }
 
 
 bool runTests::runTheTests(){
     try {
+        cout << "\n\tTESTING" << endl;
         runTests::assertEquals(5, 5);
         runTests::assertEquals("a", "a");
         runTests::assertEquals(1., 1.);
-        cout << "Running All the tests: " << endl;
+        cout << "\n\tRunning Basic Tests: " << endl;
 
-        runTests::assertEquals(Calculator::solve("5 + 7"), 12.);
-        runTests::assertEquals(Calculator::solve("5+ 7"), 12.);
-        runTests::assertEquals(Calculator::solve("5 +7"), 12.);
-        runTests::assertEquals(Calculator::solve("5+7"), 12.);
-        runTests::assertEquals(Calculator::solve("5    +    7"), 12.);
+        runTests::assertEquals("5 + 7", 12.);
+        runTests::assertEquals("5+ 7", 12.);
+        runTests::assertEquals("5 +7", 12.);
+        runTests::assertEquals("5+7", 12.);
+        runTests::assertEquals("5    +    7", 12.);
 
-        runTests::assertEquals(Calculator::solve("50+70"), 120.);
-        runTests::assertEquals(Calculator::solve("5 0+7 0"), 120.);
-        runTests::assertEquals(Calculator::solve(" 5 0 + 7 0 "), 120.);
-        runTests::assertEquals(Calculator::solve("50+  7  0"), 120.);
-        runTests::assertEquals(Calculator::solve("  5   0   +70"), 120.);
+        runTests::assertEquals("5.+7.", 12.);
+        runTests::assertEquals("5.0+7.0", 12.);
 
-        runTests::assertEquals(Calculator::solve("500 + 7"), 507.);
-        runTests::assertEquals(Calculator::solve(" 5 0 0 +7"), 507.);
+        runTests::assertEquals("5.2+7.2", 12.4);
 
-        runTests::assertEquals(Calculator::solve("13 - 10"), 3.);
-        runTests::assertEquals(Calculator::solve("13- 10"), 3.);
-        runTests::assertEquals(Calculator::solve("13 -10"), 3.);
-        runTests::assertEquals(Calculator::solve(" 13-10 "), 3.);
+        runTests::assertEquals("50+70", 120.);
+        runTests::assertEquals("5 0+7 0", 120.);
+        runTests::assertEquals(" 5 0 + 7 0 ", 120.);
+        runTests::assertEquals("50+  7  0", 120.);
+        runTests::assertEquals("  5   0   +70", 120.);
 
-        runTests::assertEquals(Calculator::solve("13 - 20"), -7.);
-        runTests::assertEquals(Calculator::solve("13 -30"), -17.);
-        runTests::assertEquals(Calculator::solve("100 - 20"), 80.);
+        runTests::assertEquals("500 + 7", 507.);
+        runTests::assertEquals(" 5 0 0 +7", 507.);
+
+        runTests::assertEquals("13 - 10", 3.);
+        runTests::assertEquals("13- 10", 3.);
+        runTests::assertEquals("13 -10", 3.);
+        runTests::assertEquals(" 13-10 ", 3.);
+
+        runTests::assertEquals("13 - 20", -7.);
+        runTests::assertEquals("13 -30", -17.);
+        runTests::assertEquals("100 - 20", 80.);
+
+        runTests::assertEquals("-50 + 20", -30.);
+        runTests::assertEquals("-1 + 20", -19.);
+        runTests::assertEquals("-0 + 20", 20.);
+        runTests::assertEquals("-5 + -5", -10.);
+        runTests::assertEquals("-5 - -5", 0.);
+        runTests::assertEquals("-5 - -10", -5.);
+        runTests::assertEquals("-50 + 20", -30.);
+
+        runTests::assertEquals("2*2", 4.);
+        runTests::assertEquals("2*0", 0.);
+        runTests::assertEquals("2* 1", 2.);
+        runTests::assertEquals("2*-2", -4.);
+        runTests::assertEquals("-2*-2", 4.);
+        runTests::assertEquals("2*100", 200.);
+
+        runTests::assertEquals("2/2", 1.);
+        runTests::assertEquals("2/4", .5);
+        runTests::assertEquals("0/4", 0.);
+        runTests::assertEquals("0/-4", 0.);
+        runTests::assertEquals("1/0", 0.);
+        runTests::assertEquals("-1/-0", 0.);
+
+        runTests::assertEquals("2^2", 4.);
+        runTests::assertEquals("2^ 4", 16);
+        runTests::assertEquals("2^-2", pow(2, -2));
+        runTests::assertEquals("2^20", pow(2, 20));
+        runTests::assertEquals("-2^2", pow(-2, 2));
+        runTests::assertEquals("-2^-2", 0);
+
+        runTests::assertEquals("sin5", sin(5));
+        runTests::assertEquals("sin(5)", sin(5));
+        runTests::assertEquals("sin-5", sin(-5));
+        runTests::assertEquals("sin(-5)", sin(-5));
+
+        runTests::assertEquals("cos5", cos(5));
+        runTests::assertEquals("cos(5)", cos(5));
+        runTests::assertEquals("cos-5", cos(-5));
+        runTests::assertEquals("cos(-5)", cos(-5));
+
+        runTests::assertEquals("tan5", tan(5));
+        runTests::assertEquals("tan(5)", tan(5));
+        runTests::assertEquals("tan-5", tan(-5));
+        runTests::assertEquals("tan(-5)", tan(-5));
+
+        runTests::assertEquals("cot5", cos(5)/sin(5));
+        runTests::assertEquals("cot(5)", cos(5)/sin(5));
+        runTests::assertEquals("cot-5", cos(-5)/sin(-5));
+        runTests::assertEquals("cot(-5)", cos(-5)/sin(-5));
+
+        runTests::assertEquals("log(5)", log(5));
+        runTests::assertEquals("log(-5)", log(-5));
+        runTests::assertEquals("log5", log(5));
+        runTests::assertEquals("log-5", log(-5));
+
+        runTests::assertEquals("ln(5)", log(5) / log(exp(1)));
+        runTests::assertEquals("ln5", log(5) / log(exp(1)));
+        runTests::assertEquals("ln(-5)", log(-5) / log(exp(1)));
+        runTests::assertEquals("ln-5", log(-5) / log(exp(1)));
+
+        cout << "\n\tRunning Complex Tests: \n";
+
+        runTests::assertEquals("(5) + (7)", 12.);
+        runTests::assertEquals("(5 + (7))", 12.);
+        runTests::assertEquals("(((5) + (7)))", 12.);
+        runTests::assertEquals("(((((5 + 7", 12.);
+        runTests::assertEquals("(5 + 7) / 12", 1.);
+        runTests::assertEquals("(5 + 7) / 4", 3.);
+        runTests::assertEquals("(5 + 7) / -12", -1.);
+        runTests::assertEquals("-(5 + 7) / 12", -1.);
+        runTests::assertEquals("-(-(5 + 7) / -12)", -1.);
+        runTests::assertEquals("(5 + 7) / 12", 1.);
+
+        runTests::assertEquals("(5 / 7 / 12)", 5./7./12.);
+        runTests::assertEquals("2*2/2*2/2*2/2", 2.);
+        runTests::assertEquals("(((1+1)+1)/(4-1)) * 12", 12.);
+        runTests::assertEquals("log(5*(5)/5)", log(5.));
+        
 
         return true;
     }catch(exception e){

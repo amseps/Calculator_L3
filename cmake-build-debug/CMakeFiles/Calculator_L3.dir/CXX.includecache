@@ -6,11 +6,25 @@
 
 #IncludeRegexTransform: 
 
-G:/Users/Josh/Documents/Development/Calculator_L3/Calculator.cpp
+G:/Users/Josh/Documents/Development/Calculator_L3/Calculator.h
+string
+-
+
+G:/Users/Josh/Documents/Development/Calculator_L3/runTests.cpp
+iostream
+-
+cfloat
+-
+cmath
+-
+runTests.h
+G:/Users/Josh/Documents/Development/Calculator_L3/runTests.h
 Calculator.h
 G:/Users/Josh/Documents/Development/Calculator_L3/Calculator.h
+string
+G:/Users/Josh/Documents/Development/Calculator_L3/string
 
-G:/Users/Josh/Documents/Development/Calculator_L3/Calculator.h
+G:/Users/Josh/Documents/Development/Calculator_L3/runTests.h
 string
 -
 
