@@ -149,6 +149,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles\Calculator_L3.dir\build.make CMakeFiles/Calculator_L3.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+runTests.obj: runTests.cpp.obj
+
+.PHONY : runTests.obj
+
+# target to build an object file
+runTests.cpp.obj:
+	$(MAKE) -f CMakeFiles\Calculator_L3.dir\build.make CMakeFiles/Calculator_L3.dir/runTests.cpp.obj
+.PHONY : runTests.cpp.obj
+
+runTests.i: runTests.cpp.i
+
+.PHONY : runTests.i
+
+# target to preprocess a source file
+runTests.cpp.i:
+	$(MAKE) -f CMakeFiles\Calculator_L3.dir\build.make CMakeFiles/Calculator_L3.dir/runTests.cpp.i
+.PHONY : runTests.cpp.i
+
+runTests.s: runTests.cpp.s
+
+.PHONY : runTests.s
+
+# target to generate assembly for a file
+runTests.cpp.s:
+	$(MAKE) -f CMakeFiles\Calculator_L3.dir\build.make CMakeFiles/Calculator_L3.dir/runTests.cpp.s
+.PHONY : runTests.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -161,6 +188,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... runTests.obj
+	@echo ... runTests.i
+	@echo ... runTests.s
 .PHONY : help
 
 

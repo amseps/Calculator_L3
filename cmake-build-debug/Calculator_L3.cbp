@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="G:/Users/Josh/Documents/Development/Calculator_L3/cmake-build-debug/runTests.cpp">
+			<Option target="Calculator_L3"/>
+		</Unit>
+		<Unit filename="G:/Users/Josh/Documents/Development/Calculator_L3/cmake-build-debug/runTests.h">
+			<Option target="Calculator_L3"/>
+		</Unit>
 		<Unit filename="G:/Users/Josh/Documents/Development/Calculator_L3/main.cpp">
 			<Option target="Calculator_L3"/>
 		</Unit>
