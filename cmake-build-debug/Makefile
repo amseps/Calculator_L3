@@ -122,6 +122,33 @@ Calculator_L3/fast:
 	$(MAKE) -f CMakeFiles\Calculator_L3.dir\build.make CMakeFiles/Calculator_L3.dir/build
 .PHONY : Calculator_L3/fast
 
+Calculator.obj: Calculator.cpp.obj
+
+.PHONY : Calculator.obj
+
+# target to build an object file
+Calculator.cpp.obj:
+	$(MAKE) -f CMakeFiles\Calculator_L3.dir\build.make CMakeFiles/Calculator_L3.dir/Calculator.cpp.obj
+.PHONY : Calculator.cpp.obj
+
+Calculator.i: Calculator.cpp.i
+
+.PHONY : Calculator.i
+
+# target to preprocess a source file
+Calculator.cpp.i:
+	$(MAKE) -f CMakeFiles\Calculator_L3.dir\build.make CMakeFiles/Calculator_L3.dir/Calculator.cpp.i
+.PHONY : Calculator.cpp.i
+
+Calculator.s: Calculator.cpp.s
+
+.PHONY : Calculator.s
+
+# target to generate assembly for a file
+Calculator.cpp.s:
+	$(MAKE) -f CMakeFiles\Calculator_L3.dir\build.make CMakeFiles/Calculator_L3.dir/Calculator.cpp.s
+.PHONY : Calculator.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -185,6 +212,9 @@ help:
 	@echo ... Calculator_L3
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... Calculator.obj
+	@echo ... Calculator.i
+	@echo ... Calculator.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

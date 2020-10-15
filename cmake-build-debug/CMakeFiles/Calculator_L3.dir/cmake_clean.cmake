@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Calculator_L3.dir/Calculator.cpp.obj"
   "CMakeFiles/Calculator_L3.dir/main.cpp.obj"
   "CMakeFiles/Calculator_L3.dir/runTests.cpp.obj"
   "Calculator_L3.exe"

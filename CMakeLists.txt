@@ -3,4 +3,4 @@ project(Calculator_L3)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Calculator_L3 main.cpp cmake-build-debug/runTests.cpp cmake-build-debug/runTests.h)
+add_executable(Calculator_L3 main.cpp runTests.cpp runTests.h Calculator.cpp Calculator.h)

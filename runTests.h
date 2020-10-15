@@ -8,15 +8,15 @@
 #include <string>
 
 class runTests {
+public:
 
-    runTests();
+    static bool assertEquals(int, int);
+    static bool assertEquals(double, double);
+    static bool assertEquals(std::string, std::string);
 
-    bool assertEquals(int, int);
-    bool assertEquals(double, double);
-    bool assertEquals(std::string, std::string);
-
-    bool runTheTests();
+    static bool runTheTests();
 };
+
 
 
 #endif //CALCULATOR_L3_RUNTESTS_H
