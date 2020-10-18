@@ -26,7 +26,6 @@ bool runTests::assertEquals(int a, int b){
 }
 
 bool runTests::assertEquals(double a , double b){
-    const double epsilon = 0.005f;
     bool pass = abs(a - b) < DBL_EPSILON;
     if(pass){
         cout << "assertEquals " << a << " == " << b << endl;
@@ -53,6 +52,16 @@ bool runTests::assertEquals(string a, double b) {
     return runTests::assertEquals(Calculator::solve(a), b);
 }
 
+bool runTests::assertEquals(Calculator::operation a, double b) {
+    if(a.b != NULL) {
+        cout << "bin-operation:{" << a.a->result << " " << a.op << " " << a.b->result << "} ->\t\t";
+    }else{
+        cout << "una-operation:{" << a.a->result << "<-" << a.op << "} ->\t\t";
+    }
+    Calculator::operation result = Calculator::resolveOperationResult(a);
+    return runTests::assertEquals(result.result, b);
+}
+
 
 bool runTests::runTheTests(){
     try {
@@ -60,7 +69,81 @@ bool runTests::runTheTests(){
         runTests::assertEquals(5, 5);
         runTests::assertEquals("a", "a");
         runTests::assertEquals(1., 1.);
+
+        cout << "\n\tRunning Operation Tests" << endl;
+        Calculator::operation main;
+        Calculator::operation a;
+        Calculator::operation b;
+        main.a = &a;
+        main.b = &b;
+        //binary
+        a.result = 5; b.result = 5; main.op = Calculator::operation::oper::PLUS;
+        assertEquals(main, 10);
+        a.result = -5; b.result = 5; main.op = Calculator::operation::oper::PLUS;
+        assertEquals(main, 0);
+        a.result = -5; b.result = -5; main.op = Calculator::operation::oper::PLUS;
+        assertEquals(main, -10);
+        a.result = 5; b.result = 5; main.op = Calculator::operation::oper::MINU;
+        assertEquals(main, 0);
+        a.result = 5; b.result = 5; main.op = Calculator::operation::oper::MULT;
+        assertEquals(main, 25);
+        a.result = 5; b.result = 5; main.op = Calculator::operation::oper::DIVI;
+        assertEquals(main, 1);
+        a.result = 5; b.result = 3; main.op = Calculator::operation::oper::POW;
+        assertEquals(main, 125);
+
+        main.b = NULL;
+
+        //unary
+        a.result = 5; main.op = Calculator::operation::oper::LOG;
+        assertEquals(main, log(5));
+        a.result = 5; main.op = Calculator::operation::oper::LN;
+        assertEquals(main, log(5)/log(exp(1)));
+        a.result = 5; main.op = Calculator::operation::oper::SIN;
+        assertEquals(main, sin(5));
+        a.result = 5; main.op = Calculator::operation::oper::COS;
+        assertEquals(main, cos(5));
+        a.result = 5; main.op = Calculator::operation::oper::TAN;
+        assertEquals(main, tan(5));
+
+        //???
+        a.result = 5; main.op = Calculator::operation::oper::NONE;
+        assertEquals(main, 5);
+
+        cout << "\n\tShunting Yard Tests: " << endl;
+        string s = "123+456";
+        assertEquals("123 456 + ", Calculator::shuntingYard(s));
+        s = "5*5";
+        assertEquals("5 5 * ", Calculator::shuntingYard(s));
+        s = "(5*5)";
+        assertEquals("5 5 * ", Calculator::shuntingYard(s));
+        s = "(5*5)+5";
+        assertEquals("5 5 * 5 + ", Calculator::shuntingYard(s));
+        s = "f5*f5";
+        assertEquals("f5 f5 * ", Calculator::shuntingYard(s));
+        s = "(f5*f5)+f5";
+        assertEquals("f5 f5 * f5 + ", Calculator::shuntingYard(s));
+        s = "(f5^f5)/5";
+        assertEquals("f5 f5 ^ 5 / ", Calculator::shuntingYard(s));
+        s = "s5";
+        assertEquals("5 s ", Calculator::shuntingYard(s));
+        s = "s(5)";
+        assertEquals("5 s ", Calculator::shuntingYard(s));
+        s = "s(5+5)";
+        assertEquals("5 5 + s ", Calculator::shuntingYard(s));
+
+        s = "(5+5+5)";
+        assertEquals("5 5 5 + + ", Calculator::shuntingYard(s));
+
+
         cout << "\n\tRunning Basic Tests: " << endl;
+
+        runTests::assertEquals("5 + 5 + 5", 15);
+
+        runTests::assertEquals("", 0);
+        runTests::assertEquals("()", 0);
+        runTests::assertEquals("(5)", 5);
+        runTests::assertEquals("(0)()", 0);
 
         runTests::assertEquals("5 + 7", 12.);
         runTests::assertEquals("5+ 7", 12.);
@@ -167,7 +250,7 @@ bool runTests::runTheTests(){
         runTests::assertEquals("2*2/2*2/2*2/2", 2.);
         runTests::assertEquals("(((1+1)+1)/(4-1)) * 12", 12.);
         runTests::assertEquals("log(5*(5)/5)", log(5.));
-        
+
 
         return true;
     }catch(exception e){

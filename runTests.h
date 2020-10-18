@@ -6,6 +6,7 @@
 #define CALCULATOR_L3_RUNTESTS_H
 
 #include <string>
+#include "Calculator.h"
 
 class runTests {
 public:
@@ -14,6 +15,7 @@ public:
     static bool assertEquals(double, double);
     static bool assertEquals(std::string, std::string);
     static bool assertEquals(std::string, double);
+    static bool assertEquals(Calculator::operation, double);
 
     static bool runTheTests();
 };

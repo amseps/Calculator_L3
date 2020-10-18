@@ -13,6 +13,12 @@
   <component name="ChangeListManager">
     <list default="true" id="fceb45a5-8e23-4f35-9f8a-994b399d9ab9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calculator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calculator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/Calculator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/Calculator.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/runTests.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/runTests.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Calculator_L3.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Calculator_L3.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runTests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/runTests.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runTests.h" beforeDir="false" afterPath="$PROJECT_DIR$/runTests.h" afterDir="false" />
@@ -72,7 +78,10 @@
       <option name="presentableId" value="Default" />
       <updated>1602730659257</updated>
       <workItem from="1602730660589" duration="3121000" />
-      <workItem from="1602783498004" duration="3648000" />
+      <workItem from="1602783498004" duration="7700000" />
+      <workItem from="1602814788643" duration="12730000" />
+      <workItem from="1602904061066" duration="13317000" />
+      <workItem from="1602991582318" duration="1494000" />
     </task>
     <servers />
   </component>
@@ -91,5 +100,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Calculator.cpp</url>
+          <line>301</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/runTests.cpp</url>
+          <line>140</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
