@@ -5,7 +5,9 @@
 
 
 int main(int argc, char ** argv) {
+
     //runTests::runTheTests();
+    
     if(argc > 1){ // 0 is exe location  ;  if there are any CL args then we'll assume it's the function to calculate :)
         std::string in = Calculator::collateProgramArgs(argc, argv);
         double out = Calculator::solve(in);
