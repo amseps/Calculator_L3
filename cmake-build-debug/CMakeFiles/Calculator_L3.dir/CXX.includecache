@@ -12,19 +12,13 @@ string
 limits
 -
 
-G:/Users/Josh/Documents/Development/Calculator_L3/runTests.cpp
+G:/Users/Josh/Documents/Development/Calculator_L3/main.cpp
 iostream
 -
-cfloat
--
-cmath
--
-runTests.h
-G:/Users/Josh/Documents/Development/Calculator_L3/runTests.h
 Calculator.h
 G:/Users/Josh/Documents/Development/Calculator_L3/Calculator.h
-string
-G:/Users/Josh/Documents/Development/Calculator_L3/string
+runTests.h
+G:/Users/Josh/Documents/Development/Calculator_L3/runTests.h
 
 G:/Users/Josh/Documents/Development/Calculator_L3/runTests.h
 string

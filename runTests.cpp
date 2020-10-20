@@ -175,11 +175,11 @@ bool runTests::runTheTests(){
         runTests::assertEquals("100 - 20", 80.);
 
         runTests::assertEquals("-50 + 20", -30.);
-        runTests::assertEquals("-1 + 20", -19.);
+        runTests::assertEquals("-1 + 20", 19.);
         runTests::assertEquals("-0 + 20", 20.);
         runTests::assertEquals("-5 + -5", -10.);
         runTests::assertEquals("-5 - -5", 0.);
-        runTests::assertEquals("-5 - -10", -5.);
+        runTests::assertEquals("-5 - -10", 5.);
         runTests::assertEquals("-50 + 20", -30.);
 
         runTests::assertEquals("2*2", 4.);
@@ -201,7 +201,7 @@ bool runTests::runTheTests(){
         runTests::assertEquals("2^-2", pow(2, -2));
         runTests::assertEquals("2^20", pow(2, 20));
         runTests::assertEquals("-2^2", pow(-2, 2));
-        runTests::assertEquals("-2^-2", 0);
+        runTests::assertEquals("-2^-2", .25);
 
         runTests::assertEquals("sin5", sin(5));
         runTests::assertEquals("sin(5)", sin(5));
@@ -223,15 +223,15 @@ bool runTests::runTheTests(){
         runTests::assertEquals("cot-5", cos(-5)/sin(-5));
         runTests::assertEquals("cot(-5)", cos(-5)/sin(-5));
 
-        runTests::assertEquals("log(5)", log(5));
-        runTests::assertEquals("log(-5)", log(-5));
-        runTests::assertEquals("log5", log(5));
-        runTests::assertEquals("log-5", log(-5));
+        runTests::assertEquals("log(5)", log(5.));
+        runTests::assertEquals("log(-5)", 0.);
+        runTests::assertEquals("log5", log(5.));
+        runTests::assertEquals("log-5", 0.);
 
-        runTests::assertEquals("ln(5)", log(5) / log(exp(1)));
-        runTests::assertEquals("ln5", log(5) / log(exp(1)));
-        runTests::assertEquals("ln(-5)", log(-5) / log(exp(1)));
-        runTests::assertEquals("ln-5", log(-5) / log(exp(1)));
+        runTests::assertEquals("ln(5)", log(5) / log(exp(1.)));
+        runTests::assertEquals("ln5", log(5) / log(exp(1.)));
+        runTests::assertEquals("ln(-5)", 0.);
+        runTests::assertEquals("ln-5", 0.);
 
         cout << "\n\tRunning Complex Tests: \n";
 
@@ -246,11 +246,42 @@ bool runTests::runTheTests(){
         runTests::assertEquals("-(-(5 + 7) / -12)", -1.);
         runTests::assertEquals("(5 + 7) / 12", 1.);
 
-        runTests::assertEquals("(5 / 7 / 12)", 5./7./12.);
+        runTests::assertEquals("(5 / 7 / 12)", (5./(7./12.)));
         runTests::assertEquals("2*2/2*2/2*2/2", 2.);
         runTests::assertEquals("(((1+1)+1)/(4-1)) * 12", 12.);
         runTests::assertEquals("log(5*(5)/5)", log(5.));
 
+        cout << "Running DESTRUCTION Tests: \n";
+
+        runTests::assertEquals("))()", 0);
+        runTests::assertEquals("", 0);
+        runTests::assertEquals(")avbe", 0);
+        runTests::assertEquals("loge))()", 0);
+        runTests::assertEquals("eeeellooge))()", 0);
+        runTests::assertEquals("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 0);
+        runTests::assertEquals("))()", 0);
+        runTests::assertEquals("+", 0);
+        runTests::assertEquals("*", 0);
+        runTests::assertEquals("l", 0);
+        runTests::assertEquals("s", 0);
+        runTests::assertEquals("c", 0);
+        runTests::assertEquals("o", 0);
+        runTests::assertEquals("n", 0);
+        runTests::assertEquals("t", 0);
+        runTests::assertEquals("/", 0);
+        runTests::assertEquals("-", 0);
+
+        runTests::assertEquals("5++5", 0);
+        runTests::assertEquals("5 +++++++++ 5", 0);
+        runTests::assertEquals("5 /////// 5", 0);
+        runTests::assertEquals("5 +-+-///$#@%()  23235255@#*%$@()#%*!_ 5", 0);
+
+
+        //pretty undefined behavior, but no crash!
+        cout << "These probably faile just hope for no crash :)" << endl;
+        runTests::assertEquals("   asd fa ewief log sin cos tan 34", 0);
+        runTests::assertEquals("(5)(45)(34)(434)", 0);
+        runTests::assertEquals("5555(log)(tan)(sin)", 0);
 
         return true;
     }catch(exception e){

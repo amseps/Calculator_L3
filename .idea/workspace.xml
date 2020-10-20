@@ -20,8 +20,8 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/objects.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/runTests.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Calculator_L3.dir/runTests.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Calculator_L3.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Calculator_L3.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runTests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/runTests.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runTests.h" beforeDir="false" afterPath="$PROJECT_DIR$/runTests.h" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,12 +60,21 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="CMake Application.Calculator_L3">
     <configuration name="Calculator_L3" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Calculator_L3" TARGET_NAME="Calculator_L3" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Calculator_L3" RUN_TARGET_NAME="Calculator_L3">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Input Params" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="( 3 + 5 )" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Calculator_L3" TARGET_NAME="Calculator_L3" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Calculator_L3" RUN_TARGET_NAME="Calculator_L3">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.Calculator_L3" />
+      <item itemvalue="CMake Application.Input Params" />
+    </list>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -81,7 +90,8 @@
       <workItem from="1602783498004" duration="7700000" />
       <workItem from="1602814788643" duration="12730000" />
       <workItem from="1602904061066" duration="13317000" />
-      <workItem from="1602991582318" duration="1494000" />
+      <workItem from="1602991582318" duration="8808000" />
+      <workItem from="1603153508766" duration="5450000" />
     </task>
     <servers />
   </component>
@@ -100,21 +110,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Calculator.cpp</url>
-          <line>301</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/runTests.cpp</url>
-          <line>140</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

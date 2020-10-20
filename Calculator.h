@@ -12,7 +12,7 @@
 class Calculator {
 
 public:
-    struct operation{
+    struct operation{ // this is unused now and is just kind of hanging out :()
         operation * a = NULL;
         operation * b = NULL;
         operation * parent = NULL;
@@ -31,12 +31,14 @@ public:
     static double calcPostFix(std::string&); //priv
     static double solve(std::string in);
 
+    static std::string collateProgramArgs(int argc, char ** argv);
+
 private:
 
     //static Calculator::operation resolveOperationResult(Calculator::operation &in); //private but not for testing
-    static std::string removeSpaces(std::string&);
 //    static std::string shuntingYard(std::string&);
 //    static double calcPostFix(std::string&);
+    static std::string removeSpaces(std::string&);
     static operation makeOperations(std::string&);
     static operation makeOperations(std::string&, int, int);
     static std::string fixParenthesis(std::string&);

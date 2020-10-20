@@ -14,6 +14,18 @@
 
 using namespace std;
 
+string Calculator::collateProgramArgs(int argc, char ** argv) {
+    string toRet = "";
+    for(int i = 1 ; i < argc; i++){
+        int g = 0;
+        while(argv[i][g] != '\0'){
+            toRet += argv[i][g];
+            g++;
+        }
+    }
+    return toRet;
+}
+
 string Calculator::removeSpaces(string &in){
     int count = 0;
     for(int i = 0 ; in[i] != '\0'; i++){
@@ -50,7 +62,8 @@ string Calculator::fixParenthesis(string &in){
     return in;
 }
 
-std::string Calculator::modAlphas(std::string& in){ // you should really use some switch statements in this u ape
+std::string Calculator::modAlphas(std::string& in){ // you should really use some switch statements in this u
+    //this function is awful
     //like fr who wrote this function jfc
     if(in.length() == 0) return "";
     for(int i = 0 ; i < in.length(); i++) { // FOR ALL CHARACTERS
@@ -60,59 +73,79 @@ std::string Calculator::modAlphas(std::string& in){ // you should really use som
                 || in[i] == ')'
                 || in[i] == '.' //dot
                 || in[i] == '+'
-                //|| in[i] == '-' // we handle minus specially below
+                || in[i] == '-' // we handle minus specially below
                 || in[i] == '/'
-                || in[]
-                ) {
+                || in[i] == '^'
+                || in[i] == '*'
+                ) { // make me wanna throw up
             // ?? do nothing
         }else if(i+3 < in.length()) { // if has some chars left
             if (in[i] == 'c') {//cos
                 if (in[i + 1] == 'o' && in[i + 2] == 's') { //cos
-                    in = in.substr(0, i) + in.substr(i + 3, in.length() - i); // remove the os
+                    in = in.substr(0, i+1) + in.substr(i + 3, in.length() - i); // remove the os
                 } else if(in[i + 1] == 'o' && in[i + 2] == 't') {//cot
-                    in = in.substr(0, i) + in.substr(i + 3, in.length() - i); //^same line^
+                    in = in.substr(0, i+1) + in.substr(i + 3, in.length() - i); //^same line^
+                    in[i] = 'o'; //COTANGENTE
                 }else {
                     in = in.substr(0, i - 1) + in.substr(i + 1, in.length() - (i + 1));
                 }
             }else if (in[i] == 's') {//sin
                 if (in[i + 1] == 'i' && in[i + 2] == 'n') {
-                    in = in.substr(0, i) + in.substr(i + 3, in.length() - i); // remove the in
+                    in = in.substr(0, i+1) + in.substr(i + 3, in.length() - i); // remove the in
                 } else {
                     in = in.substr(0, i - 1) + in.substr(i + 1, in.length() - (i + 1));
                 }
             } else if (in[i] == 't') {//tan
                 if (in[i + 1] == 'a' && in[i + 2] == 'n') {
-                    in = in.substr(0, i) + in.substr(i + 3, in.length() - i); // remove the an
+                    in = in.substr(0, i+1) + in.substr(i + 3, in.length() - i); // remove the an
                 } else {
                     in = in.substr(0, i - 1) + in.substr(i + 1, in.length() - (i + 1));
                 }
             } else if(in[i] == 'l'){
                 if(in[i+1] == 'o' && in[i+2] == 'g'){
-                    in = in.substr(0, i) + in.substr(i + 3, in.length() - (i+3)); // remove the og
+                    in = in.substr(0, i+1) + in.substr(i + 3, in.length() - (i+3)); // remove the og
                 }else if(in[i+1] == 'n') {//ln{
-                    in = in.substr(0, i-1) + in.substr(i + 1, in.length() - (i+1)); //remove the l , n is code for ln
+                    in = in.substr(0, i) + in.substr(i + 1); //remove the l , n is code for ln
                 }else {
-                    in = in.substr(0, i - 1) + in.substr(i + 1, in.length() - (i + 1));
+                    in = in.substr(0, i) + in.substr(i + 1, in.length() - (i + 1));
                 }
             }
         }else if (i+2 < in.length()) { // check ln, if enough roome enough chars
-            if(in[i+1] == 'n'){ //ln{
-                in = in.substr(0, i-1) + in.substr(i + 1, in.length() - (i+1)); //remove the l , n is code for ln
+            if(in[i] == 'l' && in[i+1] == 'n'){ //ln{
+                in = in.substr(0, i) + in.substr(i + 1, in.length() - (i+1)); //remove the l , n is code for ln
             }
         }else{ //if some other dumb character, kill it, decrement i to inspect char that took its place
-            in = in.substr(0, i-1) + in.substr(i + 1, in.length() - (i+1)); // remove this value
+            in = in.substr(0, i) + in.substr(i + 1, in.length() - (i+1)); // remove this value
             i--;
         }
     }// FOR ALL CHARACTERS IN STRING
 
-    if(in[0] == '-') in[0] = 'f'; // see below
-    for(int i = 1 ; i < in.length(); i++){ // turn negatives into i. [-5] -> [f5] , [-5--5] -> [f5+f5];
+    for(int i = 0 ; i < in.length(); i++){//check if first digit is negative, make it a coole 0 + -num
+        //though this makes it so (5)3 is an illegal op OR (5)(-3) is illegal without writing a bumch of stuffe
+        // i mean it was illegal before but it's now even harder to implement suh
+        if((isdigit(in[i]) || in[i] == '.')){ // if this is the first digit
+            if(i > 0 && in[i-1] == '-'){ // this makes (-5.0) -> (0+f5.0) whiche makes oure life easiere
+                in[i - 1] = 'f';
+                //in.insert(i - 1, "0+"); why
+                break;
+            }else break; // if first digit isn't negative then break;
+        }
+    }
+
+    for(int i = 0 ; i < in.length(); i++){ // turn negatives into i. [-5] -> [f5] , [-5--5] -> [f5+f5];
         if(in[i] == '+' || in[i] == '*' || in[i] == '/' || in[i] == 'l' || in[i] == 'n' || in[i] == '^' || in[i] == 'c' || in[i] == 't' || in[i] == 's' || in[i] == ')' || in[i] == '('){
             // if + * / l n ^ c t o s ( )
-            if(in[i+1] == '-') in[i+1] = 'f'; // if next char is -, that means negative number not sub
+            if(in[i+1] == '-') in[i+1] = 'f'; // if next char is -, that means negative number not sub\  // this is a dangerous operation
         }else if(in[i] == '-'){//must be subtraction
-            in[i] = '+';
-            in.insert(i+1, "+");
+            if(in[i+1] == '-') { // if it's a {-5--5} (repeat --)
+                in = in.substr(0, i) + in.substr(i + 1); // skip over that second -
+                in[i] = '+';
+            }else if(in[i+1] == '('){ // if we are right before an open parenthesis
+                in[i] = 'f'; // this is now a special unary character
+            }else {
+                in[i] = '+';
+                in.insert(i + 1, "f");
+            }
         }
     }
 
@@ -220,168 +253,235 @@ Calculator::operation Calculator::makeOperations(string &in, int start, int end)
 }
 
 string Calculator::shuntingYard(string &in){
-    stack<string> st;
-    queue<string> qu;
-    for(int i = 0 ; i < in.length() ; i++){
-        char n;
-        char c = in[i];
-        switch(c){
-            case '(':
-                st.push(string(1, c));
-                break;
-            case ')':
-                if(st.size() > 0) {
-                    string thisstring = st.top();
-                    n = thisstring[0]; //profound
-                    while (n != '(') {
-                        st.pop();
-                        qu.push(string(1, n));
-                        thisstring = st.top();
+    try {
+        stack<string> st;
+        queue<string> qu;
+        for (int i = 0; i < in.length(); i++) {
+            char n;
+            char c = in[i];
+            switch (c) {
+                case '(':
+                    st.push(string(1, c));
+                    break;
+                case ')':
+                    if (st.size() > 0) {
+                        string thisstring = st.top();
                         n = thisstring[0]; //profound
+                        while (n != '(') {
+                            st.pop();
+                            qu.push(string(1, n));
+                            if(st.size() < 1){
+                                cout << "[ERROR; Not enough numbers]";
+                                return "";
+                            }
+                            thisstring = st.top();
+                            n = thisstring[0]; //profound
+                        }
+                        st.pop();
                     }
-                    st.pop();
-                }
-                break;
-            case '^':
-                st.push(string(1,c));
-                break;
-            case 's': case 'c': case 't': case 'o': case 'l': case 'n':
-                if(n == '^') {
+                    break;
+                case '^':
                     st.push(string(1, c));
-                }else{
-                    st.push(string(1,c));
-                }
-                break;
-            case '*': case '/':
-                (st.size() > 0)? n = st.top()[0] : n = 'x';
-                if(n == 's' || n == 'c' || n == 't' || n == 'o' || n == 'l' || n == 'n' || n == '^'){
-                    qu.push(string(1, c));
-                }else{
-                    st.push(string(1, c));
-                }
-                break;
-            case '+': case '-':
-                (st.size() > 0)? n = st.top()[0] : n = 'x';
-                if(
-                        n == '^'
-                        ||n == 's' || n == 'c' || n == 't' || n == 'o' || n == 'l' || n == 'n'
-                        || n == '*' || n == '/'
-                ){
-                    qu.push(string(1, c));
-                }else{
-                    st.push(string(1, c));
-                }
-                break;
-            case 'f':
-            case '.':
-            case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
-                int end = i;
-                while( (isdigit(in[end]) || in[end] == 'f'|| in[end] == '.')) {
-                    end++;
-                    //go to end of this int I found
-                }
-                qu.push(in.substr(i, end-i)); // push that range
-                i = end-1; // move i forward past this number
-                break;
+                    break;
+                case 's':
+                case 'c':
+                case 't':
+                case 'o':
+                case 'l':
+                case 'n':
+                    if (n == '^') {
+                        st.push(string(1, c));
+                    } else {
+                        st.push(string(1, c));
+                    }
+                    break;
+                case '*':
+                case '/':
+                    (st.size() > 0) ? n = st.top()[0] : n = 'x';
+                    if (n == 's' || n == 'c' || n == 't' || n == 'o' || n == 'l' || n == 'n' || n == '^') {
+                        qu.push(string(1, c));
+                    } else {
+                        st.push(string(1, c));
+                    }
+                    break;
+                case '+':
+                case '-':
+                    (st.size() > 0) ? n = st.top()[0] : n = 'x';
+                    if (
+                            n == '^'
+                            || n == 's' || n == 'c' || n == 't' || n == 'o' || n == 'l' || n == 'n'
+                            || n == '*' || n == '/'
+                            ) {
+                        qu.push(string(1, c));
+                    } else {
+                        st.push(string(1, c));
+                    }
+                    break;
+                case 'f':
+                case '.':
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    int end = i;
+                    while ((isdigit(in[end]) || in[end] == 'f' || in[end] == '.')) {
+                        end++;
+                        //go to end of this int I found
+                    }
+                    if (c == 'f' && end - i == 1) { // if just 'f' IE f(123+456)
+                        st.push(in.substr(i, end - i));
+                    } else {
+                        qu.push(in.substr(i, end - i)); // push that range
+                        i = end - 1; // move i forward past this number
+                    }
+                    break;
+            }
+        }//Iterate In string
+        while (st.size() > 0) {
+            string n = st.top();
+            st.pop();
+            qu.push(n);
         }
-    }//Iterate In string
-    while(st.size() > 0){
-        string n = st.top();
-        st.pop();
-        qu.push(n);
+        string out = "";
+        while (qu.size() > 0) {
+            out += qu.front() + " ";
+            qu.pop();
+        }
+        return out;
+    }catch(exception e){
+        cout << "[ERROR in Parsing " << e.what() << "]";
+        return "";
     }
-    string out = "";
-    while(qu.size() > 0){
-        out += qu.front() + " ";
-        qu.pop();
-    }
-    return out;
 }
 
 double Calculator::calcPostFix(std::string& in){ // https://www.geeksforgeeks.org/stack-set-4-evaluation-postfix-expression/
-    string curr;
-    size_t pos = 0;
-    size_t lastpos = 0;
-    double a;
-    stack<double> st;
-    pos = in.find(" ", lastpos);
-    double thisdig;
-    while(pos != string::npos){ //i'm shocked with how many needless calculations are in this function
-        char c = in[lastpos];
-        if(isdigit(c) || c == 'f' || c == '.' ){
-            bool negative = false;
-            if(c == 'f'){
-                negative = true; //hmm
-                lastpos = pos+1;
-            }
-            thisdig = stod(in.substr(lastpos, pos-lastpos));
-            if(negative) thisdig = -thisdig;
-            st.push(thisdig);
-        }else{ //value is not a number
-            thisdig = st.top();
-            st.pop();
-            switch(c){
-                case 's': //unary operators
-                    thisdig = sin(thisdig);
+    try {
+        string curr;
+        size_t pos = 0;
+        size_t lastpos = 0;
+        double a;
+        stack<double> st;
+        pos = in.find(" ", lastpos);
+        double thisdig = 0;
+        while (pos != string::npos) { //i'm shocked with how many needless calculations are in this function
+            char c = in[lastpos];
+            if (isdigit(c) || c == 'f' || c == '.') {
+                if (lastpos < in.length() - 1 && in[lastpos] == 'f' &&
+                    in[lastpos + 1] == ' ') { // if 'f ' IE f(123+456)
+                    if(st.size() < 1){ // if ???? string broek
+                        return 0;
+                    }else {
+                        thisdig = st.top();
+                        thisdig = -thisdig;
+                        st.pop();
+                        st.push(thisdig); // do negative unary op
+                    }
+                } else {// more than just unary negative sign
+                    bool negative = false;
+                    if (c == 'f') {
+                        negative = true; //hmm
+                        lastpos++;
+                    }
+                    thisdig = stod(in.substr(lastpos, pos - lastpos));
+                    if (negative) thisdig = -thisdig;
                     st.push(thisdig);
-                    break;
-                case 'c':
-                    thisdig = cos(thisdig);
-                    st.push(thisdig);
-                    break;
-                case 't':
-                    thisdig = tan(thisdig);
-                    st.push(thisdig);
-                    break;
-                case 'o':
-                    a = cos(thisdig) / sin(thisdig);
-                    st.push(thisdig);
-                    break;
-                case 'l':
-                    a = log(thisdig);
-                    st.push(thisdig);
-                    break;
-                case 'n':
-                    a = log(thisdig)/log(exp(1));
-                    st.push(thisdig);
-                    break;
+                } // more than just unneg
+            } else { //value is not a number
+                if(st.size() < 1){ // this line should be replaced with an exception or something
+                    //I want a flag to know if I should cout or not tbh
+                    return 0;
+                }else {
+                    thisdig = st.top();
+                    st.pop();
+                    if(st.size() < 1){
+                        return 0;
+                    }else {
+                        switch (c) {
+                            case 's': //unary operators
+                                thisdig = sin(thisdig);
+                                st.push(thisdig);
+                                break;
+                            case 'c':
+                                thisdig = cos(thisdig);
+                                st.push(thisdig);
+                                break;
+                            case 't':
+                                thisdig = tan(thisdig);
+                                st.push(thisdig);
+                                break;
+                            case 'o':
+                                thisdig = cos(thisdig) / sin(thisdig);
+                                st.push(thisdig);
+                                break;
+                            case 'l':
+                                if (thisdig < 0) {
+                                    thisdig = 0;
+                                } else {
+                                    thisdig = log(thisdig);
+                                }
+                                st.push(thisdig);
+                                break;
+                            case 'n':
+                                if (thisdig < 0) {
+                                    thisdig = 0;
+                                } else {
+                                    thisdig = log(thisdig) / log(exp(1));
+                                }
+                                st.push(thisdig);
+                                break;
 
-                case '+': //binary operators
-                    thisdig = thisdig + st.top();
-                    st.pop();
-                    st.push(thisdig);
-                    break;
-                case '-':
-                    thisdig = thisdig - st.top();
-                    st.pop();
-                    st.push(thisdig);
-                    break;
-                case '*':
-                    thisdig = thisdig * st.top();
-                    st.pop();
-                    st.push(thisdig);
-                    break;
-                case '/':
-                    thisdig = thisdig / st.top();
-                    st.pop();
-                    st.push(thisdig);
-                    break;
-                case '^':
-                    thisdig = pow(thisdig, st.top());
-                    st.pop();
-                    st.push(thisdig);
-                    break;
+                            case '+': //binary operators
+                                thisdig = thisdig + st.top();
+                                st.pop();
+                                st.push(thisdig);
+                                break;
+                            case '-':
+                                thisdig = thisdig - st.top();
+                                st.pop();
+                                st.push(thisdig);
+                                break;
+                            case '*':
+                                thisdig = thisdig * st.top();
+                                st.pop();
+                                st.push(thisdig);
+                                break;
+                            case '/':
+                                if (thisdig == 0) { // yeah divide by zero becomes 0 instead of inf bc coolmath
+                                    // it's already zero :()
+                                } else {
+                                    thisdig = st.top() / thisdig;
+                                }
+                                st.pop();
+                                st.push(thisdig);
+                                break;
+                            case '^':
+                                thisdig = pow(st.top(), thisdig);
+                                st.pop();
+                                st.push(thisdig);
+                                break;
 
-                default:
-                    cout << "???" << endl;
-                    throw new exception();
-                    break;
+                            default:
+                                cout << "???" << endl;
+                                throw new exception();
+                                break;
+                        }
+                    }
+                }
             }
+            lastpos = pos + 1;
+            pos = in.find(" ", lastpos); //sometimes u just gotta clone lines idk
         }
-        lastpos = pos+1;
-        pos = in.find(" ", lastpos); //sometimes u just gotta clone lines idk
+        return thisdig;
+    }catch(exception e){
+        cout << "[ERROR in Solving: " << e.what() << "]";
+        return 0;
     }
-    return a;
 }
 
 double Calculator::solve(string in){
@@ -395,7 +495,7 @@ double Calculator::solve(string in){
 
     }catch(exception e){
         cout << e.what();
-        return std::numeric_limits<double>::min();
+        return 0;
     }
     return -1;
 }
