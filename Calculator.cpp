@@ -121,8 +121,6 @@ std::string Calculator::modAlphas(std::string& in){ // you should really use som
     }// FOR ALL CHARACTERS IN STRING
 
     for(int i = 0 ; i < in.length(); i++){//check if first digit is negative, make it a coole 0 + -num
-        //though this makes it so (5)3 is an illegal op OR (5)(-3) is illegal without writing a bumch of stuffe
-        // i mean it was illegal before but it's now even harder to implement suh
         if((isdigit(in[i]) || in[i] == '.')){ // if this is the first digit
             if(i > 0 && in[i-1] == '-'){ // this makes (-5.0) -> (0+f5.0) whiche makes oure life easiere
                 in[i - 1] = 'f';
@@ -149,6 +147,17 @@ std::string Calculator::modAlphas(std::string& in){ // you should really use som
         }
     }
 
+    for(int i = 1 ; i < in.length(); i++){ //resolve (5)5 -> (5)*5 for ( parenthesis
+        if(in[i] == '(' && (isdigit(in[i-1])  || in[i-1] == '.'  || in[i-1] == ')' )){
+            in = in.substr(0, i) + "*" + in.substr(i);
+        }
+    }
+    for(int i = 0 ; i < in.length()-1; i++){//resolve parenthesis * for )
+        if(in[i] == ')' && (in[i+1] == 's' || in[i+1] == 'c' ||in[i+1] == 't' ||in[i+1] == 'o' ||in[i+1] == 'l' ||in[i+1] == 'n' || isdigit(in[i+1]) || in[i+1] == '.' || in[i+1] == 'f' || in[i+1] == '(')){
+            i++;
+            in = in.substr(0, i) + "*" + in.substr(i);
+        }
+    }
     return in; //idk if this function works lole
 }
 
@@ -397,11 +406,11 @@ double Calculator::calcPostFix(std::string& in){ // https://www.geeksforgeeks.or
                     //I want a flag to know if I should cout or not tbh
                     return 0;
                 }else {
-                    thisdig = st.top();
-                    st.pop();
-                    if(st.size() < 1){
+                    if(st.size() < 1) {
                         return 0;
                     }else {
+                        thisdig = st.top();
+                        st.pop();
                         switch (c) {
                             case 's': //unary operators
                                 thisdig = sin(thisdig);
@@ -437,32 +446,52 @@ double Calculator::calcPostFix(std::string& in){ // https://www.geeksforgeeks.or
                                 break;
 
                             case '+': //binary operators
-                                thisdig = thisdig + st.top();
-                                st.pop();
+                                if(st.size() < 1){
+
+                                }else {
+                                    thisdig = thisdig + st.top();
+                                    st.pop();
+                                }
                                 st.push(thisdig);
                                 break;
                             case '-':
-                                thisdig = thisdig - st.top();
-                                st.pop();
+                                if(st.size() < 1){
+
+                                }else{
+                                    thisdig = thisdig - st.top();
+                                    st.pop();
+                                }
                                 st.push(thisdig);
                                 break;
                             case '*':
-                                thisdig = thisdig * st.top();
-                                st.pop();
+                                if(st.size() < 1){
+
+                                }else {
+                                    thisdig = thisdig * st.top();
+                                    st.pop();
+                                }
                                 st.push(thisdig);
                                 break;
                             case '/':
                                 if (thisdig == 0) { // yeah divide by zero becomes 0 instead of inf bc coolmath
                                     // it's already zero :()
                                 } else {
-                                    thisdig = st.top() / thisdig;
+                                    if(st.size() < 1){
+
+                                    }else {
+                                        thisdig = st.top() / thisdig;
+                                        st.pop();
+                                    }
                                 }
-                                st.pop();
                                 st.push(thisdig);
                                 break;
                             case '^':
-                                thisdig = pow(st.top(), thisdig);
-                                st.pop();
+                                if(st.size() < 1){
+
+                                }else {
+                                    thisdig = pow(st.top(), thisdig);
+                                    st.pop();
+                                }
                                 st.push(thisdig);
                                 break;
 

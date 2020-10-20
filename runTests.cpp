@@ -233,6 +233,12 @@ bool runTests::runTheTests(){
         runTests::assertEquals("ln(-5)", 0.);
         runTests::assertEquals("ln-5", 0.);
 
+        runTests::assertEquals("(5)5", 25.);
+        runTests::assertEquals("(5)(5)", 25.);
+        runTests::assertEquals("5(5)", 25.);
+        runTests::assertEquals("(((5)5)5)", 125.);
+        runTests::assertEquals("(((5)5)-5)", -125.);
+
         cout << "\n\tRunning Complex Tests: \n";
 
         runTests::assertEquals("(5) + (7)", 12.);
