@@ -10,6 +10,7 @@ int main(int argc, char ** argv) {
     
     if(argc > 1){ // 0 is exe location  ;  if there are any CL args then we'll assume it's the function to calculate :)
         std::string in = Calculator::collateProgramArgs(argc, argv);
+        //strangely, powershell deletes parenthesis from command line arguments
         double out = Calculator::solve(in);
         std::cout <<  out;
         return out;
